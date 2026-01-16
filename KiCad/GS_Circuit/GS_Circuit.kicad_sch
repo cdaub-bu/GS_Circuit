@@ -1937,7 +1937,7 @@
 		(uuid "18d397a5-fab4-4500-8d65-f08b2fe012b3")
 	)
 	(junction
-		(at 151.13 90.805)
+		(at 174.625 90.805)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "284c5a06-dcc0-4fb0-bab2-b7adfbd7d549")
@@ -1986,7 +1986,7 @@
 	)
 	(wire
 		(pts
-			(xy 151.13 80.01) (xy 151.13 90.805)
+			(xy 174.625 80.01) (xy 174.625 90.805)
 		)
 		(stroke
 			(width 0)
@@ -2036,7 +2036,7 @@
 	)
 	(wire
 		(pts
-			(xy 141.605 90.805) (xy 151.13 90.805)
+			(xy 141.605 90.805) (xy 174.625 90.805)
 		)
 		(stroke
 			(width 0)
@@ -2076,7 +2076,7 @@
 	)
 	(wire
 		(pts
-			(xy 142.24 80.01) (xy 151.13 80.01)
+			(xy 142.24 80.01) (xy 174.625 80.01)
 		)
 		(stroke
 			(width 0)
@@ -2206,7 +2206,7 @@
 	)
 	(wire
 		(pts
-			(xy 151.13 97.155) (xy 151.13 90.805)
+			(xy 174.625 99.695) (xy 174.625 90.805)
 		)
 		(stroke
 			(width 0)
@@ -2528,7 +2528,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Library:TEPT4400"
 			(at 131.445 58.42 0)
 			(effects
 				(font
@@ -2638,7 +2638,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 151.13 97.155 0)
+		(at 174.625 99.695 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2647,7 +2647,7 @@
 		(fields_autoplaced yes)
 		(uuid "0f120bcd-3469-485a-b06d-f7e327cfb375")
 		(property "Reference" "#PWR010"
-			(at 151.13 103.505 0)
+			(at 174.625 106.045 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2656,7 +2656,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 151.13 101.6 0)
+			(at 174.625 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2664,7 +2664,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 151.13 97.155 0)
+			(at 174.625 99.695 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2673,7 +2673,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 151.13 97.155 0)
+			(at 174.625 99.695 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2682,7 +2682,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 151.13 97.155 0)
+			(at 174.625 99.695 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2860,7 +2860,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_THT:C_Disc_D4.3mm_W1.9mm_P5.00mm"
 			(at 47.3202 44.45 0)
 			(effects
 				(font
@@ -3053,15 +3053,15 @@
 				)
 			)
 		)
-		(property "Value" "LED"
-			(at 134.62 89.535 0)
+		(property "Value" "LED, TLHG4600, TLHY4600, TLHY4600, TLHF4601"
+			(at 150.495 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_THT:LED_D3.0mm"
 			(at 137.795 90.805 0)
 			(effects
 				(font
@@ -3139,7 +3139,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 124.841 91.821 90)
 			(effects
 				(font
@@ -3274,7 +3274,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 125.476 81.026 90)
 			(effects
 				(font
@@ -3476,7 +3476,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_IDC:IDC-Header_2x03_P2.54mm_Vertical"
 			(at 36.83 100.965 90)
 			(effects
 				(font
@@ -3557,7 +3557,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 132.461 47.879 90)
 			(effects
 				(font
@@ -3616,15 +3616,15 @@
 				)
 			)
 		)
-		(property "Value" "LED"
-			(at 135.255 78.74 0)
+		(property "Value" "LED, TLHG4600, TLHY4600, TLHY4600, TLHF4601"
+			(at 150.495 74.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_THT:LED_D3.0mm"
 			(at 138.43 80.01 0)
 			(effects
 				(font
@@ -3703,7 +3703,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Battery:BatteryHolder_TruPower_BH-331P_3xAA"
 			(at 29.845 55.626 90)
 			(effects
 				(font
@@ -3954,7 +3954,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 81.534 87.376 90)
 			(effects
 				(font
