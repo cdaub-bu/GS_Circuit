@@ -1,4 +1,4 @@
 (fp_lib_table
   (version 7)
-  (lib (name "Library")(type "KiCad")(uri "${KIPRJMOD}/Library.pretty")(options "")(descr ""))
+  (lib (name "GS_Parts")(type "KiCad")(uri "${KIPRJMOD}/GS_Parts.pretty")(options "")(descr ""))
 )
