@@ -2528,7 +2528,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "GS_Parts:TEPT4400"
+		(property "Footprint" "GS_Parts:THT_TEPT4400"
 			(at 131.445 58.42 0)
 			(effects
 				(font
@@ -2548,6 +2548,15 @@
 		)
 		(property "Description" "Photodiode"
 			(at 131.445 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DIGIKEY" ""
+			(at 131.445 59.69 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2712,7 +2721,7 @@
 		(dnp no)
 		(uuid "15b41473-ce8f-478e-9e03-07f746ee111a")
 		(property "Reference" "SW2"
-			(at 23.495 41.91 0)
+			(at 22.225 43.18 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2720,7 +2729,7 @@
 			)
 		)
 		(property "Value" "SW_SPST"
-			(at 26.035 41.91 0)
+			(at 22.225 40.64 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2747,6 +2756,15 @@
 		)
 		(property "Description" "Single Pole Single Throw (SPST) switch"
 			(at 29.845 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DIGIKEY" ""
+			(at 29.845 41.91 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2845,15 +2863,15 @@
 		(dnp no)
 		(uuid "32b51da8-2e30-4aa7-89a4-6705c5b3eabe")
 		(property "Reference" "C1"
-			(at 38.735 40.64 90)
+			(at 40.005 41.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "C"
-			(at 41.275 40.64 90)
+		(property "Value" ".1 uf"
+			(at 40.005 39.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2879,6 +2897,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 46.355 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DIGIKEY" ""
 			(at 46.355 40.64 0)
 			(effects
 				(font
@@ -2947,6 +2974,15 @@
 			)
 		)
 		(property "Description" "Push button switch, generic, two pins"
+			(at 131.445 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DIGIKEY" ""
 			(at 131.445 29.21 0)
 			(effects
 				(font
@@ -3053,7 +3089,7 @@
 				)
 			)
 		)
-		(property "Value" "LED, TLHG4600, TLHY4600, TLHY4600, TLHF4601"
+		(property "Value" "LED"
 			(at 150.495 86.36 0)
 			(effects
 				(font
@@ -3061,7 +3097,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_THT:LED_D3.0mm"
+		(property "Footprint" "GS_Parts:LED_D5.0mm"
 			(at 137.795 90.805 0)
 			(effects
 				(font
@@ -3089,6 +3125,15 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
+			(at 137.795 90.805 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DIGIKEY" "1516-QBL8IW60D-CW-ND,   1516-1364-ND,   754-1888-ND,   67-2288-ND"
 			(at 137.795 90.805 0)
 			(effects
 				(font
@@ -3130,7 +3175,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "R_US"
+		(property "Value" "91 Ohms"
 			(at 123.19 88.265 90)
 			(effects
 				(font
@@ -3159,6 +3204,15 @@
 		)
 		(property "Description" "Resistor, US symbol"
 			(at 125.095 90.805 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DIGIKEY" ""
+			(at 125.095 90.805 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3265,7 +3319,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "R_US"
+		(property "Value" "91 Ohms"
 			(at 123.825 77.47 90)
 			(effects
 				(font
@@ -3294,6 +3348,15 @@
 		)
 		(property "Description" "Resistor, US symbol"
 			(at 125.73 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DIGIKEY" ""
+			(at 125.73 80.01 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3503,6 +3566,15 @@
 				(hide yes)
 			)
 		)
+		(property "DIGIKEY" ""
+			(at 43.18 102.235 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "5"
 			(uuid "a0c1a20f-e59c-4451-b1d6-f478f47a2178")
 		)
@@ -3584,6 +3656,15 @@
 				(hide yes)
 			)
 		)
+		(property "DIGIKEY" ""
+			(at 131.445 47.625 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "cc3d7ee9-46c4-4780-924c-35b867531486")
 		)
@@ -3616,7 +3697,7 @@
 				)
 			)
 		)
-		(property "Value" "LED, TLHG4600, TLHY4600, TLHY4600, TLHF4601"
+		(property "Value" "LED"
 			(at 150.495 74.93 0)
 			(effects
 				(font
@@ -3624,7 +3705,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_THT:LED_D3.0mm"
+		(property "Footprint" "GS_Parts:LED_D5.0mm"
 			(at 138.43 80.01 0)
 			(effects
 				(font
@@ -3652,6 +3733,15 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
+			(at 138.43 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DIGIKEY" "1516-QBL8IW60D-CW-ND,   1516-1364-ND,   754-1888-ND,   67-2288-ND"
 			(at 138.43 80.01 0)
 			(effects
 				(font
@@ -3749,6 +3839,15 @@
 			)
 		)
 		(property "Sim.Pins" "1=+ 2=-"
+			(at 29.845 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DIGIKEY" ""
 			(at 29.845 57.15 0)
 			(effects
 				(font
@@ -3894,6 +3993,15 @@
 				(hide yes)
 			)
 		)
+		(property "DIGIKEY" ""
+			(at 71.12 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "5"
 			(uuid "b66bde43-f8e1-40da-b1e4-c7f7ecbbe83d")
 		)
@@ -3973,6 +4081,15 @@
 			)
 		)
 		(property "Description" "Resistor, US symbol"
+			(at 82.55 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DIGIKEY" ""
 			(at 82.55 87.63 0)
 			(effects
 				(font
