@@ -1,4 +1,4 @@
-27226092019262196
+27229629695129650
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -63272,6 +63272,20 @@ GDT 3R-6
 0
 3
 3
+GS_Parts
+BatteryHolder_Keystone_2464
+Battery holder, Keystone 2479, battery type 3xAAA, http://www.keyelco.com/product-pdf.cfm?p=1041, generated with kicad-footprint-generator StandardBox_generator.py
+horizontal triple
+0
+2
+2
+GS_Parts
+BatteryHolder_Keystone_2479_3xAAA
+Battery holder, Keystone 2479, battery type 3xAAA, http://www.keyelco.com/product-pdf.cfm?p=1041, generated with kicad-footprint-generator StandardBox_generator.py
+horizontal triple
+0
+2
+2
 GS_Parts
 LC 1258
 

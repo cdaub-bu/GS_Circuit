@@ -3703,7 +3703,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Battery:BatteryHolder_TruPower_BH-331P_3xAA"
+		(property "Footprint" "GS_Parts:BatteryHolder_Keystone_2464"
 			(at 29.845 55.626 90)
 			(effects
 				(font

@@ -1,0 +1,153 @@
+(footprint "BatteryHolder_Keystone_2464"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(descr "Battery holder, Keystone 2479, battery type 3xAAA, http://www.keyelco.com/product-pdf.cfm?p=1041, generated with kicad-footprint-generator StandardBox_generator.py")
+	(tags "horizontal triple")
+	(property "Reference" "REF**"
+		(at 23.66 -7.95 0)
+		(layer "F.SilkS")
+		(uuid "f2caa421-c2cf-460b-b1ea-5cd12d7a5151")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "BatteryHolder_Keystone_2464"
+		(at 23.66 31.95 0)
+		(layer "F.Fab")
+		(uuid "0a241d86-e0be-476c-a844-33d46a992743")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "fa703026-cff2-49d7-9f6e-e36c507eb61e")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "dc9c50bd-39c2-4bce-90d3-297060b1583e")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr through_hole)
+	(fp_rect
+		(start -2.8 -9.514)
+		(end 56.2 39.486)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.SilkS")
+		(uuid "49808352-9db3-49d4-a200-df63cadc81d4")
+	)
+	(fp_rect
+		(start -3.05 -9.75)
+		(end 56.45 39.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "e56495da-38bb-40b5-9989-305dbf5b28e1")
+	)
+	(fp_rect
+		(start -2.374 -9.144)
+		(end 55.626 39.156)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "d89fb59b-1661-483f-adaf-d6f7fb7ef2c6")
+	)
+	(fp_text user "+"
+		(at -4.5 0.05 0)
+		(layer "F.SilkS")
+		(uuid "84919a05-69fa-4ac4-b57d-99e4b63b6601")
+		(effects
+			(font
+				(size 3 3)
+				(thickness 0.15)
+			)
+		)
+	)
+	(fp_text user "${REFERENCE}"
+		(at 23.66 12 0)
+		(layer "F.Fab")
+		(uuid "b6fbb888-cf39-46c0-974d-3706397feb9f")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "" np_thru_hole circle
+		(at 26.7 0)
+		(size 3.45 3.45)
+		(drill 3.5)
+		(layers "*.Cu" "*.Mask")
+		(uuid "ff38ad20-b7dd-4228-a09d-82ce28e41f83")
+	)
+	(pad "" np_thru_hole circle
+		(at 26.7 30)
+		(size 3.45 3.45)
+		(drill 3.5)
+		(layers "*.Cu" "*.Mask")
+		(uuid "040ef956-e8ef-4092-9900-8d0b9637ebaf")
+	)
+	(pad "1" thru_hole roundrect
+		(at 0 0)
+		(size 3 3)
+		(drill 1.2)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(roundrect_rratio 0.083333)
+		(uuid "01dc70e5-882e-4609-a583-c133aa1f5241")
+	)
+	(pad "2" thru_hole circle
+		(at 0 12.7)
+		(size 3 3)
+		(drill 1.2)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "6f1f315d-a1c8-4e9c-aac3-124cab15ca2b")
+	)
+	(embedded_fonts no)
+	(model "${KICAD9_3DMODEL_DIR}/Battery.3dshapes/BatteryHolder_Keystone_2479_3xAAA.step"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)
