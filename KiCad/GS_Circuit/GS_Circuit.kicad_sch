@@ -1929,6 +1929,113 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "tens:BOM_item"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "XX"
+				(at -3.81 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "BOM_item"
+				(at 6.35 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "CatNo" "CatNo"
+				(at 24.13 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Vendor" "Vendor"
+				(at 50.8 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify right)
+				)
+			)
+			(property "Qty" "Qty"
+				(at 1.27 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(symbol "BOM_item_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 52.07 0)
+					)
+					(stroke
+						(width 0)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	)
+	(text "Additional BOM Items"
+		(exclude_from_sim no)
+		(at 99.822 116.586 0)
+		(effects
+			(font
+				(size 2.54 2.54)
+			)
+			(justify left)
+		)
+		(uuid "5caf75b3-0ac6-4118-9abf-78693cc5aeb1")
 	)
 	(junction
 		(at 131.445 53.34)
@@ -2435,6 +2542,105 @@
 		(uuid "7d6e53d5-f689-42ca-ada1-129cb7368110")
 	)
 	(symbol
+		(lib_id "tens:BOM_item")
+		(at 104.14 123.19 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "00000000-0000-0000-0000-00006193d94e")
+		(property "Reference" "XX1"
+			(at 100.33 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "White LED"
+			(at 109.474 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 104.14 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 104.14 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 104.14 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "CatNo" "1516-QBL8IW60D-CW-ND"
+			(at 120.904 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Vendor" "DigiKey"
+			(at 154.94 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Qty" "1"
+			(at 105.41 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "DIGIKEY" "1516-QBL8IW60D-CW-ND"
+			(at 104.14 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "GS_Circuit"
+				(path "/9b478156-6fed-4cfd-9c5f-11981dbd0d2e"
+					(reference "XX1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 131.445 64.135 0)
 		(unit 1)
@@ -2508,7 +2714,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "08e852d9-8780-40a1-91ec-8e2acfad82f2")
 		(property "Reference" "S1"
 			(at 135.89 57.4674 90)
@@ -2555,13 +2760,12 @@
 				(hide yes)
 			)
 		)
-		(property "DIGIKEY" "  751-1057-ND"
-			(at 131.445 59.69 90)
+		(property "DIGIKEY" " 751-1057-ND"
+			(at 138.43 62.23 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(pin "2"
@@ -2764,12 +2968,11 @@
 			)
 		)
 		(property "DIGIKEY" "EG5886-ND"
-			(at 29.845 41.91 90)
+			(at 21.844 48.514 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(pin "2"
@@ -2782,6 +2985,105 @@
 			(project ""
 				(path "/9b478156-6fed-4cfd-9c5f-11981dbd0d2e"
 					(reference "SW2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tens:BOM_item")
+		(at 104.14 142.24 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "177eacac-f24f-4835-8400-198c148ebfd5")
+		(property "Reference" "XX6"
+			(at 100.33 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Cap Red"
+			(at 109.474 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 104.14 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 104.14 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 104.14 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "CatNo" "EG1195-ND"
+			(at 124.46 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Vendor" "DigiKey"
+			(at 154.94 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Qty" "1"
+			(at 105.41 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "DIGIKEY" "EG1195-ND"
+			(at 104.14 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "GS_Circuit"
+				(path "/9b478156-6fed-4cfd-9c5f-11981dbd0d2e"
+					(reference "XX6")
 					(unit 1)
 				)
 			)
@@ -2905,13 +3207,12 @@
 				(hide yes)
 			)
 		)
-		(property "DIGIKEY" ""
-			(at 46.355 40.64 0)
+		(property "DIGIKEY" "445-173588-1-ND"
+			(at 56.642 37.592 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(pin "2"
@@ -2937,7 +3238,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "3fcb0984-8193-4bb7-81ad-44326ef46b62")
 		(property "Reference" "SW1"
 			(at 131.445 21.59 0)
@@ -2983,12 +3283,11 @@
 			)
 		)
 		(property "DIGIKEY" "EG5888-ND"
-			(at 131.445 29.21 0)
+			(at 131.318 30.988 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(pin "2"
@@ -3077,7 +3376,7 @@
 		(at 137.795 90.805 180)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "492bd8ec-7d11-4b46-a047-2222d02676b9")
@@ -3090,7 +3389,7 @@
 			)
 		)
 		(property "Value" "LED"
-			(at 150.495 86.36 0)
+			(at 146.05 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3133,7 +3432,7 @@
 				(hide yes)
 			)
 		)
-		(property "DIGIKEY" "1516-QBL8IW60D-CW-ND,   1516-1364-ND,   754-1888-ND,   67-2288-ND"
+		(property "DIGIKEY" "Various"
 			(at 137.795 90.805 0)
 			(effects
 				(font
@@ -3211,7 +3510,7 @@
 				(hide yes)
 			)
 		)
-		(property "DIGIKEY" ""
+		(property "DIGIKEY" "CF14JT91R0CT-ND"
 			(at 125.095 90.805 90)
 			(effects
 				(font
@@ -3230,6 +3529,105 @@
 			(project "GS_Circuit"
 				(path "/9b478156-6fed-4cfd-9c5f-11981dbd0d2e"
 					(reference "R2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tens:BOM_item")
+		(at 104.14 138.43 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5765aa53-4906-41fd-b96a-a34470413fd7")
+		(property "Reference" "XX5"
+			(at 100.33 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "DIP-8 Socket"
+			(at 109.474 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 104.14 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 104.14 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 104.14 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "CatNo" "2057-ICS-308-T-ND"
+			(at 124.46 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Vendor" "DigiKey"
+			(at 154.94 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Qty" "1"
+			(at 105.41 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "DIGIKEY" "2057-ICS-308-T-ND"
+			(at 104.14 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "GS_Circuit"
+				(path "/9b478156-6fed-4cfd-9c5f-11981dbd0d2e"
+					(reference "XX5")
 					(unit 1)
 				)
 			)
@@ -3355,13 +3753,12 @@
 				(hide yes)
 			)
 		)
-		(property "DIGIKEY" ""
-			(at 125.73 80.01 90)
+		(property "DIGIKEY" "CF14JT91R0CT-ND"
+			(at 114.554 83.058 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(pin "2"
@@ -3516,9 +3913,9 @@
 		(at 43.18 102.235 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
+		(in_bom no)
+		(on_board no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "9a40c778-b557-41c0-9d82-94d8bda839cc")
 		(property "Reference" "J1"
@@ -3612,7 +4009,7 @@
 		(dnp no)
 		(uuid "9c25e12b-b639-4913-a74e-a82ceb55b8b5")
 		(property "Reference" "R3"
-			(at 127.635 48.895 0)
+			(at 126.746 49.022 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3621,7 +4018,7 @@
 			)
 		)
 		(property "Value" "10K"
-			(at 127 46.355 0)
+			(at 125.73 46.482 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3656,7 +4053,7 @@
 				(hide yes)
 			)
 		)
-		(property "DIGIKEY" ""
+		(property "DIGIKEY" "CF14JT10K0CT-ND"
 			(at 131.445 47.625 0)
 			(effects
 				(font
@@ -3685,7 +4082,7 @@
 		(at 138.43 80.01 180)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "a4bf1d42-779d-4a8c-a5fc-26c9517036dc")
@@ -3698,7 +4095,7 @@
 			)
 		)
 		(property "Value" "LED"
-			(at 150.495 74.93 0)
+			(at 146.304 78.486 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3741,13 +4138,12 @@
 				(hide yes)
 			)
 		)
-		(property "DIGIKEY" "1516-QBL8IW60D-CW-ND,   1516-1364-ND,   754-1888-ND,   67-2288-ND"
-			(at 138.43 80.01 0)
+		(property "DIGIKEY" "Various"
+			(at 132.08 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(pin "1"
@@ -3766,6 +4162,204 @@
 		)
 	)
 	(symbol
+		(lib_id "tens:BOM_item")
+		(at 104.14 134.62 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b7b9d86c-9169-4527-b494-0b68c021d3e2")
+		(property "Reference" "XX4"
+			(at 100.33 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Blue LED"
+			(at 109.474 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 104.14 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 104.14 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 104.14 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "CatNo" "1516-1365-ND"
+			(at 120.904 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Vendor" "DigiKey"
+			(at 154.94 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Qty" "1"
+			(at 105.41 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "DIGIKEY" "1516-1365-ND"
+			(at 104.14 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "GS_Circuit"
+				(path "/9b478156-6fed-4cfd-9c5f-11981dbd0d2e"
+					(reference "XX4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tens:BOM_item")
+		(at 104.14 127 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d1563cce-c6d7-47ff-b191-83e652f020d6")
+		(property "Reference" "XX2"
+			(at 100.33 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Green LED"
+			(at 109.474 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 104.14 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 104.14 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 104.14 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "CatNo" "1516-1364-ND"
+			(at 120.904 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Vendor" "DigiKey"
+			(at 154.94 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Qty" "1"
+			(at 105.41 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "DIGIKEY" "1516-1364-ND"
+			(at 104.14 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "GS_Circuit"
+				(path "/9b478156-6fed-4cfd-9c5f-11981dbd0d2e"
+					(reference "XX2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:Battery")
 		(at 29.845 57.15 0)
 		(unit 1)
@@ -3773,7 +4367,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "d60e7038-ac8d-4aed-a449-79d7fd17548a")
 		(property "Reference" "BT1"
 			(at 33.655 55.3084 0)
@@ -3848,12 +4441,11 @@
 			)
 		)
 		(property "DIGIKEY" "36-2464-ND"
-			(at 29.845 57.15 0)
+			(at 22.606 62.484 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(pin "2"
@@ -3938,6 +4530,105 @@
 		)
 	)
 	(symbol
+		(lib_id "tens:BOM_item")
+		(at 104.14 146.05 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "da9457d4-df9f-459d-8644-8bd7c950b686")
+		(property "Reference" "XX7"
+			(at 100.33 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Cap Blue"
+			(at 109.474 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 104.14 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 104.14 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 104.14 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "CatNo" "1DBLU-ND"
+			(at 124.46 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Vendor" "DigiKey"
+			(at 154.94 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Qty" "1"
+			(at 105.41 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "DIGIKEY" "1DBLU-ND"
+			(at 104.14 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "GS_Circuit"
+				(path "/9b478156-6fed-4cfd-9c5f-11981dbd0d2e"
+					(reference "XX7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "MCU_Microchip_ATtiny:ATtiny85V-10P")
 		(at 71.12 58.42 0)
 		(unit 1)
@@ -3945,7 +4636,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "eafb1954-2237-4f3d-902a-3d58e12ae56e")
 		(property "Reference" "U2"
 			(at 57.15 57.1499 0)
@@ -3994,12 +4684,11 @@
 			)
 		)
 		(property "DIGIKEY" "ATTINY85-20PU-ND"
-			(at 71.12 58.42 0)
+			(at 47.244 62.484 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(pin "5"
@@ -4030,6 +4719,105 @@
 			(project ""
 				(path "/9b478156-6fed-4cfd-9c5f-11981dbd0d2e"
 					(reference "U2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tens:BOM_item")
+		(at 104.14 130.81 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ebd746d7-40f4-4632-84b4-58200b2c8153")
+		(property "Reference" "XX3"
+			(at 100.33 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Red LED"
+			(at 109.474 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 104.14 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 104.14 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 104.14 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "CatNo" "67-2288-ND"
+			(at 120.904 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Vendor" "DigiKey"
+			(at 154.94 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Qty" "1"
+			(at 105.41 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "DIGIKEY" "67-2288-ND"
+			(at 104.14 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "GS_Circuit"
+				(path "/9b478156-6fed-4cfd-9c5f-11981dbd0d2e"
+					(reference "XX3")
 					(unit 1)
 				)
 			)
@@ -4089,7 +4877,7 @@
 				(hide yes)
 			)
 		)
-		(property "DIGIKEY" ""
+		(property "DIGIKEY" "CF14JT10K0CT-ND"
 			(at 82.55 87.63 0)
 			(effects
 				(font
