@@ -4,17 +4,34 @@
  */
 
 // #define USE_UART
+#define USE_ACOMP
+
+// if 1M pull-up to LDR is wired to pin 7
+// #define PUP_MOD
+
+// goto sleep and turn off after this many ticks of 100Hz
+#define SLEEP_TIME 1000
 
 #include <stdio.h>
 #include <avr/io.h>
 #include <util/delay.h>
 #include <stdint.h>
+#include <avr/interrupt.h>
+#include <avr/sleep.h>
+#include <avr/power.h>
 
 #include "timer_10kHz.h"
-#include "adc.h"
 
 #ifdef USE_UART
 #include "uart.h"
+#endif
+
+#ifdef USE_ACOMP
+#include "acomp.h"
+#endif
+
+#ifdef SLEEP_TIME
+#include "sleep.h"
 #endif
 
 // Arduino LED is on PB5
@@ -23,12 +40,19 @@
 #define LED_BIT 3
 #define LED_PORT PORTB
 
+#ifdef PUP_MOD
+#define PUP_DDR DDRB
+#define PUP_BIT 2
+#define PUP_PORT PORTB
+#endif
+
 #define SW_DDR DDRB
 #define SW_BIT 0
 #define SW_PORT PORTB
 #define SW_PIN PINB
 
-volatile uint16_t tick;
+volatile uint8_t tick;
+volatile uint16_t long_tick;
 volatile int8_t pct = 1;
 
 #define PERIOD 100
@@ -38,13 +62,23 @@ volatile int8_t pct = 1;
 ISR(TIMER0_COMPA_vect)
 {
   ++tick;
-  if( tick == PERIOD)
+  if( tick == PERIOD) {
     tick = 0;
+    ++long_tick;
+  }
   if( tick < pct)
     LED_PORT |= (1 << LED_BIT);
   else
     LED_PORT &= ~(1 << LED_BIT);
 }
+
+#ifdef SLEEP_TIME
+ISR(PCINT0_vect)
+{
+    // Executed after wake-up
+    // Keep this ISR short
+}
+#endif
 
 uint8_t dim[] = { 0, 1, 2, 5, 10, 20, 50, 99 };
 #define NDIM (sizeof(dim)/sizeof(dim[0]))
@@ -55,23 +89,53 @@ static int bounce;
 
 static uint16_t adcv;
 
+void flash_led( int n) {
+      // flash the LED
+  for( int i=0; i<n; i++) {
+    pct = dim[3];
+    _delay_ms(25);
+    pct = 0;
+    _delay_ms(25);
+  }
+}
+
 int main (void)
 {
+#ifdef PUP_MOD
+  // enable PB2 as output for pull-up on the light sensor
+  PUP_DDR |= _BV(PUP_BIT);
+  PUP_PORT |= _BV(PUP_BIT);
+#endif
+  
+  SW_PORT |= _BV( SW_BIT);	/* enable pull-up */
+  LED_DDR |= (1 << LED_BIT);
+
+  // turn off BOD in sleep to reduce power
+  MCUCR |= _BV(BODS) | _BV(BODSE);
+  MCUCR |= _BV(BODS);
+  power_adc_disable();  
+
   timer0_init_10kHz();
-  adc_init();
+
+
 #ifdef USE_UART
   uart_tx_init();
 #endif
+#ifdef USE_ACOMP
+  acomp_init();
+#endif  
+#ifdef SLEEP_TIME
+  long_tick = 0;
+#endif  
 
-  SW_PORT |= _BV( SW_BIT);	/* enable pull-up */
 
-  LED_DDR |= (1 << LED_BIT);
   bounce = DEBOUNCE;
-  level = 0;
+  level = 1;
   pct = 0;
 
   while( 1) {
-    _delay_ms(1000);
+    _delay_ms(3);
+
     if( bounce)
       --bounce;
     else {
@@ -82,17 +146,79 @@ int main (void)
 	  level = 0;
       }
     }
-    adcv = adc_read(1);
 
 #ifdef USE_UART
     uart_tx_byte( adcv);
     uart_tx_byte( adcv >> 8);
 #endif
     
-    if( adcv >= 0x300)
-      pct = 1;
+#ifdef USE_ACOMP
+    if( acomp_read())
+      adcv = 0;
     else
+      adcv = 0xffff;
+#endif    
+
+    if( adcv >= 0x300)
       pct = dim[level];
+    else
+      pct = 0;
+
+#ifdef SLEEP_TIME
+    if( long_tick > SLEEP_TIME) {
+
+      flash_led(10);
+
+#ifdef PUP_MOD
+      // turn off LDR pull-up
+      PUP_PORT &= ~_BV(PUP_BIT);
+#endif
+      // go to sleep
+      long_tick = 0;
+
+      cli();		/* disable interrupts while setting up */
+
+      /* Disable unused peripherals to save power */
+      ADCSRA &= ~(1 << ADEN);   // Disable ADC
+      power_all_disable();
+
+      /* Configure PB0 as input */
+      DDRB &= ~(1 << PB0);
+      PORTB |= (1 << PB0);      // Enable pull-up (optional)
+
+      /* Enable pin-change interrupt on PB0 */
+      PCMSK |= (1 << PCINT0);   // Unmask PCINT0
+      GIMSK |= (1 << PCIE);     // Enable pin-change interrupts
+
+      // turn off the comparator (saves 18uA!)
+      ACSR |= _BV(ACD);
+
+      sei();                    // Enable global interrupts
+
+      set_sleep_mode( SLEEP_MODE_PWR_DOWN);
+      sleep_enable();
+      sleep_cpu();
+
+      // come here on wake-up
+      sleep_disable();
+      power_all_enable();
+      power_adc_disable();
+
+      long_tick = 0;
+      pct = dim[level];
+
+#ifdef PUP_MOD
+      PUP_PORT |= _BV(PUP_BIT);
+#endif
+
+      // turn the comparator back on
+      ACSR &= ~_BV(ACD);
+
+      acomp_init();
+      flash_led(5);
+    }
+#endif    
+    
   }
 }
 

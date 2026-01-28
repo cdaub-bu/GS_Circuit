@@ -12,7 +12,8 @@ void timer0_init_10kHz(void)
     // Prescaler = 8
     TCCR0B = (1 << CS01);
 
-    OCR0A = 99;               // 10 kHz at 8 MHz / 8
+    //    OCR0A = 99;               // 10 kHz at 8 MHz / 8
+    OCR0A = 13;               // 10 kHz at 1 MHz / 8
 
     TCNT0 = 0;                // Reset counter
 
