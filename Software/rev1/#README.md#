@@ -1,0 +1,54 @@
+# Rev1
+
+First attempt at operating software
+
+Some thoughts:
+
+Device spends most of it's time in sleep mode.
+* Wake up every few s (maybe 1s) with WDT and increment a counter
+
+Each minute:
+* Check dark level.  If newly dark, wake up, turn on LEDs and set a timer for ~1h
+* If light and light has persisted for 5m, turn off and go back to sleep
+
+Each button press:
+* turn on LEDs and set timer for 10s
+* subsequent presses change dimmer level
+* after 10s timeout, go back to checking light level
+
+States:
+
+```
+LIT : stay awake
+while(1):
+  wait for 1s
+  if(lit_time) lit_time--
+  if(dim_time) dim_time--
+  if( lit_time == 0 && dim_time == 0):
+    goto SLEEP
+  if(button pressed):
+    if(dim_time):
+ 	   light_level++
+	 dim_time = 10s
+  if(light):
+    light_count++
+  else
+    light_count = 0
+  if(light_count > n):
+    goto SLEEP
+   
+SLEEP : go to sleep
+  lit_time = 0
+  dim_time = 0
+  light_count = 0
+  -- sleep --
+  
+WAKE : wake up on watchdog 1s or button press
+  if( woke on button):
+    goto LIT
+  ++sec_count
+  goto SLEEP
+   
+   
+```
+

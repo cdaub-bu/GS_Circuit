@@ -60,6 +60,11 @@ ISR(PCINT0_vect)
     // Keep this ISR short
 }
 
+ISR(WDT_vect) {
+  ;
+}
+
+
 uint8_t dim[] = { 0, 1, 2, 5, 10, 20, 50, 99 };
 #define NDIM (sizeof(dim)/sizeof(dim[0]))
 static int level;
@@ -90,6 +95,7 @@ int main (void)
   power_adc_disable();  
 
   timer0_init_10kHz();
+  setup_wdt();
 
   acomp_init();
   long_tick = 0;
