@@ -1,16 +1,12 @@
 /*
- * simple dimmer example
+ * Initial version of GSA operating software
+ *
  * use timer 0 interrupt at 10kHz to generate 0-99% at 100Hz PWM rate
  */
 
-// #define USE_UART
-#define USE_ACOMP
-
-// if 1M pull-up to LDR is wired to pin 7
-// #define PUP_MOD
-
 // goto sleep and turn off after this many ticks of 100Hz
-#define SLEEP_TIME 6000
+// now a 32-bit value, so 1 hr is e.g. (100*60*60)
+#define SLEEP_TIME 1000
 
 #include <stdio.h>
 #include <avr/io.h>
@@ -22,29 +18,15 @@
 
 #include "timer_10kHz.h"
 
-#ifdef USE_UART
-#include "uart.h"
-#endif
-
-#ifdef USE_ACOMP
 #include "acomp.h"
-#endif
-
-#ifdef SLEEP_TIME
 #include "sleep.h"
-#endif
 
+// LEDs on PB3 and PB4
 #define LED_DDR DDRB
 #define LED_BIT 3
 #define LED2_BIT 4
 #define LED_MASK (_BV(LED_BIT)|_BV(LED2_BIT))
 #define LED_PORT PORTB
-
-#ifdef PUP_MOD
-#define PUP_DDR DDRB
-#define PUP_BIT 2
-#define PUP_PORT PORTB
-#endif
 
 #define SW_DDR DDRB
 #define SW_BIT 0
@@ -52,7 +34,7 @@
 #define SW_PIN PINB
 
 volatile uint8_t tick;
-volatile uint16_t long_tick;
+volatile uint32_t long_tick;
 volatile int8_t pct = 1;
 
 #define PERIOD 100
@@ -72,13 +54,16 @@ ISR(TIMER0_COMPA_vect)
     LED_PORT &= ~LED_MASK;
 }
 
-#ifdef SLEEP_TIME
 ISR(PCINT0_vect)
 {
     // Executed after wake-up
     // Keep this ISR short
 }
-#endif
+
+ISR(WDT_vect) {
+  ;
+}
+
 
 uint8_t dim[] = { 0, 1, 2, 5, 10, 20, 50, 99 };
 #define NDIM (sizeof(dim)/sizeof(dim[0]))
@@ -101,12 +86,6 @@ void flash_led( int n) {
 
 int main (void)
 {
-#ifdef PUP_MOD
-  // enable PB2 as output for pull-up on the light sensor
-  PUP_DDR |= _BV(PUP_BIT);
-  PUP_PORT |= _BV(PUP_BIT);
-#endif
-  
   SW_PORT |= _BV( SW_BIT);	/* enable pull-up */
   LED_DDR |= LED_MASK;
 
@@ -116,18 +95,10 @@ int main (void)
   power_adc_disable();  
 
   timer0_init_10kHz();
+  setup_wdt();
 
-
-#ifdef USE_UART
-  uart_tx_init();
-#endif
-#ifdef USE_ACOMP
   acomp_init();
-#endif  
-#ifdef SLEEP_TIME
   long_tick = 0;
-#endif  
-
 
   bounce = DEBOUNCE;
   level = 1;
@@ -147,53 +118,18 @@ int main (void)
       }
     }
 
-#ifdef USE_UART
-    uart_tx_byte( adcv);
-    uart_tx_byte( adcv >> 8);
-#endif
-    
-#ifdef USE_ACOMP
     if( acomp_read())
-      adcv = 0;
-    else
-      adcv = 0xffff;
-#endif    
-
-    if( adcv >= 0x300)
-      pct = dim[level];
-    else
       pct = 0;
+    else
+      pct = dim[level];
 
-#ifdef SLEEP_TIME
     if( long_tick > SLEEP_TIME) {
 
       flash_led(10);
 
-#ifdef PUP_MOD
-      // turn off LDR pull-up
-      PUP_PORT &= ~_BV(PUP_BIT);
-#endif
       // go to sleep
       long_tick = 0;
-
-      cli();		/* disable interrupts while setting up */
-
-      /* Disable unused peripherals to save power */
-      ADCSRA &= ~(1 << ADEN);   // Disable ADC
-      power_all_disable();
-
-      /* Configure PB0 as input */
-      DDRB &= ~(1 << PB0);
-      PORTB |= (1 << PB0);      // Enable pull-up (optional)
-
-      /* Enable pin-change interrupt on PB0 */
-      PCMSK |= (1 << PCINT0);   // Unmask PCINT0
-      GIMSK |= (1 << PCIE);     // Enable pin-change interrupts
-
-      // turn off the comparator (saves 18uA!)
-      ACSR |= _BV(ACD);
-
-      sei();                    // Enable global interrupts
+      sleep_init();
 
       set_sleep_mode( SLEEP_MODE_PWR_DOWN);
       sleep_enable();
@@ -207,17 +143,12 @@ int main (void)
       long_tick = 0;
       pct = dim[level];
 
-#ifdef PUP_MOD
-      PUP_PORT |= _BV(PUP_BIT);
-#endif
-
       // turn the comparator back on
       ACSR &= ~_BV(ACD);
-
       acomp_init();
+
       flash_led(5);
     }
-#endif    
     
   }
 }

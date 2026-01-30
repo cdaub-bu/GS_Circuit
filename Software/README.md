@@ -34,8 +34,14 @@ Write all 1's to the PRR, no change.
 AHA!  Turning of the comparator by writing ACD in ACR does it!
 Now ~ 0.5uA.
 
-Without the LDR pull-up mod, bright light draws 5uA.
+Without the LDR pull-up mod, bright ambient light draws 5uA.
 This seems like the best we can do without modding the PCB.
+
+=== Refactor the code ===
+
+* Timer is 10kHz (100us)
+   * 
+
 
 **2026-01-27**
 
