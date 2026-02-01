@@ -4,9 +4,12 @@
  * use timer 0 interrupt at 10kHz to generate 0-99% at 100Hz PWM rate
  */
 
+// NC dimmer button as on PCB
+#define SW_NC
+
 // goto sleep and turn off after this many ticks of 100Hz
 // now a 32-bit value, so 1 hr is e.g. (100*60*60)
-#define SLEEP_TIME 1000
+#define SLEEP_TIME 6000
 
 #include <stdio.h>
 #include <avr/io.h>
@@ -20,6 +23,7 @@
 
 #include "acomp.h"
 #include "sleep.h"
+#include "wdt.h" 
 
 // LEDs on PB3 and PB4
 #define LED_DDR DDRB
@@ -110,7 +114,11 @@ int main (void)
     if( bounce)
       --bounce;
     else {
+#ifdef SW_NC
+      if( (SW_PIN & _BV(SW_BIT)) != 0) { /* switch pressed */
+#else      
       if( (SW_PIN & _BV(SW_BIT)) == 0) { /* switch pressed */
+#endif
 	bounce = DEBOUNCE;
 	++level;
 	if( level >= NDIM)
@@ -134,6 +142,9 @@ int main (void)
       set_sleep_mode( SLEEP_MODE_PWR_DOWN);
       sleep_enable();
       sleep_cpu();
+
+      // ---- SLEEP ----
+
 
       // come here on wake-up
       sleep_disable();

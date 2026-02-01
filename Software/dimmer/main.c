@@ -3,6 +3,9 @@
  * use timer 0 interrupt at 10kHz to generate 0-99% at 100Hz PWM rate
  */
 
+// reversed pushbutton (NC) 
+#define SW_NC
+
 // #define USE_UART
 #define USE_ACOMP
 
@@ -139,7 +142,11 @@ int main (void)
     if( bounce)
       --bounce;
     else {
+#ifdef SW_NC
+      if( (SW_PIN & _BV(SW_BIT)) != 0) { /* switch pressed */
+#else
       if( (SW_PIN & _BV(SW_BIT)) == 0) { /* switch pressed */
+#endif
 	bounce = DEBOUNCE;
 	++level;
 	if( level >= NDIM)

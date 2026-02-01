@@ -8,7 +8,7 @@ Device spends most of it's time in sleep mode.
 * Wake up every few s with WDT and increment a counter
 
 Each minute:
-* Check dark level.  If newly dark, turn on LEDs and set a timer for ~1h
+* Check dark level.  If newly dark, wake up, turn on LEDs and set a timer for ~1h
 * If light and light has persisted for 5m, turn off and go back to sleep
 
 Each button press:
