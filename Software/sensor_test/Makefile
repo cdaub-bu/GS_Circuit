@@ -36,9 +36,9 @@ DUDEPORT  = -c avrispv2 -P usb
 DUDEMCU = t85
 AVRDUDE  = avrdude $(DUDEPORT) -p $(DUDEMCU) -y -u 
 
-objects = main.o timer_10kHz.o uart.o acomp.o sleep.o wdt.o
+objects = main.o uart.o acomp.o
 
-headers = timer_10kHz.h uart.h acomp.h sleep.h wdt.h
+headers = uart.h acomp.h
 
 all: $(objects)  main.hex list
 
