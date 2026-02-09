@@ -3,7 +3,7 @@
  * 
  */
 
-// #define USE_UART
+#define USE_UART
 #define USE_ACOMP
 
 #include <stdio.h>
@@ -40,7 +40,9 @@ static int level;
 static int bounce;
 #define DEBOUNCE 50
 
-static uint16_t adcv;
+uint16_t ac_on;
+uint16_t ac_off;
+uint8_t ac;
 
 int main (void)
 {
@@ -55,13 +57,21 @@ int main (void)
 #endif  
 
   while(1) {
-    if( acomp_read()) {
+    ac = acomp_read();
+    if( ac) {
+      ++ac_on;
       LED_PORT |= _BV(LED_BIT);
       LED_PORT &= ~_BV(LED2_BIT);
     } else {
+      ++ac_off;
       LED_PORT &= ~_BV(LED_BIT);
       LED_PORT |= _BV(LED2_BIT);
-    }      
+    }
+    uart_tx_hex4( ac_on);
+    uart_tx_byte(' ');
+    uart_tx_hex4( ac_off);
+    uart_tx_crlf();
+    _delay_ms(100);
   }
 }
 
