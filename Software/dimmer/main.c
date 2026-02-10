@@ -13,7 +13,7 @@
 // #define PUP_MOD
 
 // goto sleep and turn off after this many ticks of 100Hz
-#define SLEEP_TIME 6000
+#define SLEEP_TIME 60
 
 #include <stdio.h>
 #include <avr/io.h>

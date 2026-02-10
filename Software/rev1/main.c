@@ -18,21 +18,18 @@
  *                goto WAKE_DIM on button press
  */
 
-// NC dimmer button as on PCB
-#define SW_NC
+// use watchdog
+// #define USE_WDT
 
 // rate of long_tick/sec
 #define TICKS_SEC 100
 
 // goto sleep and turn off after this many ticks of 100Hz
 // now a 32-bit value, so 1 hr is e.g. (60*60*TICKS_SEC)
-#define SLEEP_TIME 20*TICKS_SEC
+#define SLEEP_TIME 10*TICKS_SEC
 
 // time lights stay on when button pressed
 #define DIM_TIME 2*TICKS_SEC
-
-// time delay before switching from LIGHT to DARK and vice-versa
-#define LIGHT_DARK_TIME 2*TICKS_SEC
 
 #include <stdio.h>
 #include <avr/io.h>
@@ -45,7 +42,9 @@
 #include "timer_10kHz.h"
 
 #include "sleep.h"
+#ifdef USE_WDT
 #include "wdt.h" 
+#endif
 
 // LEDs on PB3 and PB4
 #define LED_DDR DDRB
@@ -61,12 +60,14 @@
 #define SW_BIT 0
 #define SW_PORT PORTB
 #define SW_PIN PINB
+#define SW_MASK _BV(SW_BIT)
 
 volatile uint8_t tick = 0;
 volatile uint32_t long_tick = 0;
 volatile uint16_t button_tick = 0;
 volatile int8_t pct = 1;
 volatile int8_t wdtick = 0;
+uint8_t button_press;
 
 #define PERIOD 100
 
@@ -92,9 +93,11 @@ ISR(PCINT0_vect)
   ;
 }
 
+#ifdef USE_WDT
 ISR(WDT_vect) {
   ++wdtick;
 }
+#endif
 
 
 uint8_t dim[] = { 0, 1, 2, 5, 10, 20, 50, 99 };
@@ -132,16 +135,23 @@ int main (void)
 
   static uint16_t light_secs;
 
-  SW_PORT |= _BV( SW_BIT);	/* enable pull-up */
+  SW_PORT |= SW_MASK;	/* enable pull-up */
   LED_DDR |= LED_MASK;
 
   // turn off BOD in sleep to reduce power
   MCUCR |= _BV(BODS) | _BV(BODSE);
   MCUCR |= _BV(BODS);
-  power_adc_disable();  
+  power_adc_disable();  	/* not using the ADC */
+
+  /* Enable pin-change interrupt on PB0 */
+  PCMSK |= (1 << PCINT0);   // Unmask PCINT0
+  GIMSK |= (1 << PCIE);     // Enable pin-change interrupts
+  GIFR |= (1 << PCIF);	    // clear pending interrupts
 
   timer0_init_10kHz();
-  setup_wdt();
+#ifdef USE_WDT
+  setup_wdt();			// also enable interrupts
+#endif
 
   long_tick = 0;
   button_tick = 0;
@@ -150,6 +160,7 @@ int main (void)
   level = 1;
   pct = 0;
 
+  // start in WAKE_ILLUM
   state = WAKE_ILLUM;
 
   while( 1) {
@@ -165,9 +176,10 @@ int main (void)
     } else {
       bounce = DEBOUNCE;
       last_button = button;
-      button = ((SW_PIN & _BV(SW_BIT)) != 0);
-      state = WAKE_DIM;
-      if( button && !last_button) {
+      button = ((SW_PIN & SW_MASK) != 0);
+      if( (button && !last_button) || button_press) {
+	button_press = 0;
+	state = WAKE_DIM;
 	++level;
 	if( level >= NDIM)
 	  level = 1;		/* don't allow 0 percent */
@@ -179,17 +191,12 @@ int main (void)
     switch( state) {
 
     case SLEEP_MODE:
-      // lights off, timed-out
-      // goto SLEEP_LIGHT if ambient lights on
-      // goto WAKE_DIM on button press
-      
+      // lights off, timed-out.  Wake up on button press
+
       long_tick = 0;
 
       // go to sleep
       sleep_init();
-
-      set_sleep_mode( SLEEP_MODE_PWR_DOWN);
-      sleep_enable();
       sleep_cpu();
 
       // ---- SLEEP ---
@@ -200,18 +207,31 @@ int main (void)
       power_adc_disable();
 
       // figure out how we woke up and take action
+#ifdef USE_WDT
       if( wdtick) {		/* WDT tick wakeup */
 
 	wdtick = 0;
-	flash_led(1);
+	//	flash_led(1);
+	// check for switch pulled high
+	if (SW_PIN & SW_MASK) {
+	  flash_led(2);
+	  state = WAKE_DIM;	/* go to "dimmer control" state */
+	  button_tick = 0;
+	  button_press = 1;
+	}
+	
 
       } else {			/* pin change wakeup */
+#endif
 
-	flash_led(2);
+	//	flash_led(2);
 	state = WAKE_DIM;	/* go to "dimmer control" state */
 	button_tick = 0;
-	
+	button_press = 1;
+
+#ifdef USE_WDT	
       }
+#endif
 
       break;
 
@@ -219,9 +239,12 @@ int main (void)
     // adjusting the light level
     case WAKE_DIM:
 
-      if( button_tick > DIM_TIME) {
-	pct = 0;
-	state = SLEEP_MODE;		/* go back to sleep */
+      if( button_tick > DIM_TIME) {     /* time out on dimmer on-time?  */
+	if( long_tick > SLEEP_TIME) {	/* still lit up? */
+	  state = SLEEP_MODE;		/* go to sleep */
+	} else {
+	  state = WAKE_ILLUM;
+	}
 	break;
       }
 

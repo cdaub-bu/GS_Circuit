@@ -7,21 +7,19 @@ void sleep_init(void)
 {
       cli();		/* disable interrupts while setting up */
 
-      /* Disable unused peripherals to save power */
-      ADCSRA &= ~(1 << ADEN);   // Disable ADC
-      power_all_disable();
-
-      /* Configure PB0 as input */
-      DDRB &= ~(1 << PB0);
-      PORTB |= (1 << PB0);      // Enable pull-up (optional)
-
-      /* Enable pin-change interrupt on PB0 */
-      PCMSK |= (1 << PCINT0);   // Unmask PCINT0
-      GIMSK |= (1 << PCIE);     // Enable pin-change interrupts
-
+  // Set the sleep mode to Power Down (most power saving)
+      set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+  
+      // Turn off peripherals to save power (ADC, Timers, etc.)
+      ADCSRA = 0; // Turn off ADC
+      power_all_disable(); // Power off ADC, Timer 0 and 1, serial interface
       // turn off the comparator (saves 18uA!)
       ACSR |= _BV(ACD);
 
-      sei();                    // Enable global interrupts
+      // turn off pull-up on button
+      PORTB &= ~1;
+
+      sleep_enable(); // Enable sleep mode
+      sei(); // Ensure global interrupts are enabled before sleeping
 }
 
