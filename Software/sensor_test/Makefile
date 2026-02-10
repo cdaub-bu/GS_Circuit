@@ -24,10 +24,10 @@ FUSEOPT = -U lfuse:w:0x62:m
 # programmer configuration for avrdude programming utility
 
 # for AVRISP programmer on USB
-DUDEPORT  = -c avrispv2 -P usb
+# DUDEPORT  = -c avrispv2 -P usb
 
 # USBTiny programmer
-# DUDEPORT  = -c usbtiny -P usb
+DUDEPORT  = -c usbtiny -P usb
 
 # for Arduino bootloader
 # DUDEPORT  = -c arduino -P /dev/ttyACM0

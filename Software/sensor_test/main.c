@@ -1,6 +1,5 @@
 /*
  * test the light sensor
- * 
  */
 
 #define USE_UART
@@ -60,12 +59,12 @@ int main (void)
     ac = acomp_read();
     if( ac) {
       ++ac_on;
-      LED_PORT |= _BV(LED_BIT);
-      LED_PORT &= ~_BV(LED2_BIT);
+      //      LED_PORT |= _BV(LED_BIT);
+      //      LED_PORT &= ~_BV(LED2_BIT);
     } else {
       ++ac_off;
-      LED_PORT &= ~_BV(LED_BIT);
-      LED_PORT |= _BV(LED2_BIT);
+      //      LED_PORT &= ~_BV(LED_BIT);
+      //      LED_PORT |= _BV(LED2_BIT);
     }
     uart_tx_hex4( ac_on);
     uart_tx_byte(' ');
