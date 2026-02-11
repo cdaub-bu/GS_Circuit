@@ -1,5 +1,5 @@
 /*
- * Initial version of GSA operating software
+ * Rev 2 GSA operating software
  * No light sensor, just a time-out
  *
  * use timer 0 interrupt at 10kHz to generate 0-99% at 100Hz PWM rate
@@ -10,23 +10,27 @@
  *                lights on for DIM_TIME seconds
  *                goto SLEEP_MODE or WAKE_ILLUM depending on timer
  *
- * SLEEP_MODE   - sleep mode, wake only on button press or reset
+ * SLEEP_MODE   - sleep mode, wake only on power cycle
+ *
+ * WAKE_ILLUM   - night lights on until time-out
+ *                on time-out goto SLEEP
  *                goto WAKE_DIM on button press
  *
- * WAKE_ILLUM   - ambient lights off, night lights on until time-out
- *                on time-out goto SLEEP_DARK
- *                goto WAKE_DIM on button press
+ * store dimmer level [0...NDIM-1] in EEPROM address 0
+ * default to dimmer level 1 if EEPROM is invalid
  */
 
-// use watchdog
-#define USE_WDT
+#define USE_EEPROM
 
 // rate of long_tick/sec
 #define TICKS_SEC 100
 
 // goto sleep and turn off after this many ticks of 100Hz
-// now a 32-bit value, so 1 hr is e.g. (60*60*TICKS_SEC)
-#define SLEEP_TIME 10*TICKS_SEC
+// now a 32-bit value, so 1 hr is e.g. (60L*60*TICKS_SEC)
+// #define SLEEP_TIME 10*TICKS_SEC   // 10s for testing
+// #define SLEEP_TIME 10L*60*TICKS_SEC   // 10m for testing
+
+#define SLEEP_TIME 45L*60*TICKS_SEC   // 45m for production
 
 // time lights stay on when button pressed
 #define DIM_TIME 2*TICKS_SEC
@@ -39,12 +43,13 @@
 #include <avr/sleep.h>
 #include <avr/power.h>
 
+#ifdef USE_EEPROM
+#include <avr/eeprom.h>
+#endif
+
 #include "timer_10kHz.h"
 
 #include "sleep.h"
-#ifdef USE_WDT
-#include "wdt.h" 
-#endif
 
 // LEDs on PB3 and PB4
 #define LED_DDR DDRB
@@ -87,22 +92,9 @@ ISR(TIMER0_COMPA_vect)
     LED_PORT &= ~LED_MASK;
 }
 
-// pin change interrupt (not used except for wake-up)
-ISR(PCINT0_vect)
-{
-  ;
-}
-
-#ifdef USE_WDT
-ISR(WDT_vect) {
-  ++wdtick;
-}
-#endif
-
-
 uint8_t dim[] = { 0, 1, 2, 5, 10, 20, 50, 99 };
 #define NDIM (sizeof(dim)/sizeof(dim[0]))
-static int level;
+static int dim_level;
 
 static int bounce;
 #define DEBOUNCE 12
@@ -143,22 +135,23 @@ int main (void)
   MCUCR |= _BV(BODS);
   power_adc_disable();  	/* not using the ADC */
 
-  /* Enable pin-change interrupt on PB0 */
-  PCMSK |= (1 << PCINT0);   // Unmask PCINT0
-  GIMSK |= (1 << PCIE);     // Enable pin-change interrupts
-  GIFR |= (1 << PCIF);	    // clear pending interrupts
-
   timer0_init_10kHz();
-#ifdef USE_WDT
-  setup_wdt();			// also enable interrupts
-#endif
 
   long_tick = 0;
   button_tick = 0;
 
   bounce = DEBOUNCE;
-  level = 1;
+#ifdef USE_EEPROM
+  dim_level = eeprom_read_byte( 0);
+  if( dim_level >= NDIM)
+    dim_level = 1;
+#else  
+  dim_level = 1;
+#endif
+
   pct = 0;
+
+  flash_led(3);
 
   // start in WAKE_ILLUM
   state = WAKE_ILLUM;
@@ -180,10 +173,13 @@ int main (void)
       if( (button && !last_button) || button_press) {
 	button_press = 0;
 	state = WAKE_DIM;
-	++level;
-	if( level >= NDIM)
-	  level = 1;		/* don't allow 0 percent */
-	pct = dim[level];
+	++dim_level;
+	if( dim_level >= NDIM)
+	  dim_level = 1;		/* don't allow 0 percent */
+	pct = dim[dim_level];
+#ifdef USE_EEPROM
+	eeprom_write_byte( 0, dim_level);
+#endif	
 	button_tick = 0;
       }
     }
@@ -194,44 +190,21 @@ int main (void)
       // lights off, timed-out.  Wake up on button press
 
       long_tick = 0;
+      pct = 0;
+
+      _delay_ms(10);
 
       // go to sleep
       sleep_init();
       sleep_cpu();
 
-      // ---- SLEEP ---
+      // ---- SLEEP --- 
+      // (don't ever get here...)
 
       // wake up
       sleep_disable();
       power_all_enable();
       power_adc_disable();
-
-      // figure out how we woke up and take action
-#ifdef USE_WDT
-      if( wdtick) {		/* WDT tick wakeup */
-
-	wdtick = 0;
-	//	flash_led(1);
-	// check for switch pulled high
-	if (SW_PIN & SW_MASK) {
-	  flash_led(2);
-	  state = WAKE_DIM;	/* go to "dimmer control" state */
-	  button_tick = 0;
-	  button_press = 1;
-	}
-	
-
-      } else {			/* pin change wakeup */
-#endif
-
-	//	flash_led(2);
-	state = WAKE_DIM;	/* go to "dimmer control" state */
-	button_tick = 0;
-	button_press = 1;
-
-#ifdef USE_WDT	
-      }
-#endif
 
       break;
 
@@ -248,11 +221,11 @@ int main (void)
 	break;
       }
 
-      pct = dim[level];
+      pct = dim[dim_level];
       break;
 
     case WAKE_ILLUM:		/* dark out, enable nightlight */
-      pct = dim[level];
+      pct = dim[dim_level];
 
       /* time out and go to sleep */
       if( long_tick > SLEEP_TIME) {
