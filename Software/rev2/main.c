@@ -22,15 +22,20 @@
 
 #define USE_EEPROM
 
+// #define TEST_TIME 1		/* test time in minutes */
+
 // rate of long_tick/sec
 #define TICKS_SEC 100
 
 // goto sleep and turn off after this many ticks of 100Hz
 // now a 32-bit value, so 1 hr is e.g. (60L*60*TICKS_SEC)
 // #define SLEEP_TIME 10*TICKS_SEC   // 10s for testing
-// #define SLEEP_TIME 10L*60*TICKS_SEC   // 10m for testing
 
+#ifdef TEST_TIME
+#define SLEEP_TIME 60L*TICKS_SEC*TEST_TIME   // 10m for testing
+#else
 #define SLEEP_TIME 45L*60*TICKS_SEC   // 45m for production
+#endif
 
 // time lights stay on when button pressed
 #define DIM_TIME 2*TICKS_SEC
@@ -151,7 +156,11 @@ int main (void)
 
   pct = 0;
 
-  flash_led(3);
+#ifdef TEST_TIME
+  flash_led(5);
+#else
+  flash_led(1);
+#endif  
 
   // start in WAKE_ILLUM
   state = WAKE_ILLUM;
