@@ -28,7 +28,8 @@ We need to avoid pins 5, 6, 7 and 1 if we want to use ISP.
 Propose to add 1 or 2 BS170 MOSFETs to drive the LEDs.  Then these
 pins can share the ISP pins with no problem.
 
-See below for proposed circuit changes:
+See below for proposed circuit changes.  One might want a pull-down
+on the MOSFET gate(s).
 
 <p>
 <img src="Images/mosfet_photo_example.png">
