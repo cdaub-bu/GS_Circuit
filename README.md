@@ -10,9 +10,6 @@ LED night-light for GSA activity
   <br>Collector should go to +5V
   <br>Emitter should go through 10k resistor to GND
 * Light sensor needs to go to an ADC pin.  This is tricky as there are so few pins.
-* Check the switches
-  <br>On/Off switch OK?
-  <br>Dimmer switch is actually normally open?
   
 Here is the table of ATTiny85 pins:
 
@@ -28,9 +25,10 @@ We need to avoid pins 5, 6, 7 and 1 if we want to use ISP.
 <br>That leaves 2, 3 as ADC pins.  Those are used for LEDs to avoid conflict with the ISP.
 <br>So no obvious solution, as the LEDs and light sensor cannot share pins with the ISP.
 
-From my analysis and confirmed by ChatGPT, there is no good solution
-without e.g. buffering the LEDs or significantly increasing their
-series resistors (thus dimming them substantially).
+Propose to add 1 or 2 BS170 MOSFETs to drive the LEDs.  Then these
+pins can share the ISP pins with no problem.
 
+See below for proposed circuit changes:
 
-
+<p>
+<img src="Images/mosfet_photo_example.png">
