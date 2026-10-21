@@ -7,8 +7,8 @@ LED night-light for GSA activity
 ### Hardware
 
 * Light sensor wired incorrectly:
-  <br>Collector should go to +5V
-  <br>Emitter should go through 10k resistor to GND
+  <br>Emitter should go to GND
+  <br>Collector should go through resistor to VCC
 * Light sensor needs to go to an ADC pin.  This is tricky as there are so few pins.
   
 Here is the table of ATTiny85 pins:
