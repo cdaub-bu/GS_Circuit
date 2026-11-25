@@ -9,9 +9,40 @@
    * Turns on light when pressed
    * Subsequent presses change intensity (3-5 options)
    * Turns off (fade out?) after 10-30s
-* Only on for ~1 hour after dark (configurable?)
+* ~~Only on for ~1 hour after dark (configurable?)~~
+  <br>Dropped in rev3 (2026-10-26): on whenever it's dark
 
 ## Development log
+
+**2026-10-26**
+
+rev3 programmed with an Uno (CH340 clone) running ArduinoISP on COM6.
+`avr-gcc`, `avrdude` 8.3 and `make` installed with winget.
+Fuses read 0x62 / 0xDF (1MHz, factory default).
+
+LEDs are active low (VCC → LED → pin).  Firmware had them inverted,
+so "off" was full on and the 1% level was 99%.  Fixed in rev3 with
+`LEDS_ON()` / `LEDS_OFF()`.
+
+Clear `MCUSR` at start-up.  After a watchdog reset WDRF forces WDE on,
+so the WDT would stay in reset mode instead of interrupt mode.
+
+Sensor measured at 5V (ADC counts, VCC ref):
+* Room light: 712-848
+* Covered: >= 1020
+
+So `DARK_LEVEL` 1000 / `LIGHT_LEVEL` 940 work.
+
+`DEBUG_SENSOR` in rev3 `main.c` blinks each reading (1 = light,
+2 = dark) and logs readings to EEPROM.  Gotcha: avrdude reading
+EEPROM through ArduinoISP shows byte 2*i at index i (only even
+addresses, aliased at 256), so values are logged as 16-byte blocks.
+Flashing erases the EEPROM (EESAVE off), including the dimmer level.
+
+Removed the 45 minute night time-out (and the WAIT_LIGHT state).
+Lights are now on whenever it's dark, off when light.  2 readings
+in a row to switch either way (was 4) for faster response.  The sensor is checked every ~8s while on too, so the
+LEDs must be shielded from it.
 
 **2026-01-28**
 
